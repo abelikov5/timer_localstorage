@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Document</title>
+</head>
+<body>
+	<div class='med_info'>
+		<div class="wrap_med_info">
+			Вы в пространстве медитации уже <span class='med_timer'> сек</span> <br>
+			С Вами работает Поток Планетарной йоги - у вас происходят позитивные изменения
+		</div>
+	</div>
+	<style>
+		.med_info {
+			/* padding: 10px 10px 10px 5px; */
+			width: 100%;
+			left: 0;
+			background: rgb(43,177,179);
+			background: linear-gradient(90deg, rgba(43,177,179,0.70) 0%, rgba(87,163,81,1) 45%, rgba(232,170,38,0.70) 100%);
+			color: white;
+			position: fixed; /* Фиксированное положение */
+			top: 0; /* Расстояние от правого края окна браузера */
+			text-align: center;
+			word-wrap: break-word!important;
+			z-index: 999;
+		}
+		.wrap_med_info {
+			margin: 10px;
+		}
+		.med_timer {
+			font-weight: bold;
+		}
+	</style>
+	
+	<script>
+		let now = localStorage.getItem('now');
+		let timer = document.querySelector('.med_timer');
+		let cur_timer = 0;
+
+		if (!now) {
+			now = new Date - new Date(0);
+			localStorage.setItem('now', now);
+		}	
+		const intervalId = setInterval(() => {
+			cur_timer =  Math.round((new Date() - now) / 1000);
+			timer.innerHTML = cur_timer + ' сек';
+			if (cur_timer > 86400) {
+				localStorage.removeItem('now')
+				clearInterval(intervalId);
+			}
+		}, 1000);
+
+	</script>
+</body>
+</html>
